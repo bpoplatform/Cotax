@@ -1,0 +1,1286 @@
+/* CoTax 법인정보등록시스템 - 애플 리퀴드 글래스 디자인 */
+
+:root {
+    /* 애플 색상 팔레트 */
+    --primary-color: #007AFF;
+    --primary-light: rgba(0, 122, 255, 0.1);
+    --secondary-color: #8E8E93;
+    --success-color: #34C759;
+    --danger-color: #FF3B30;
+    --warning-color: #FF9500;
+    --info-color: #5AC8FA;
+    --light-color: #F2F2F7;
+    --dark-color: #1C1C1E;
+    
+    /* 리퀴드 글래스 효과 색상 */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.8);
+    
+    /* 블러 값 */
+    --blur-xs: 4px;
+    --blur-sm: 8px;
+    --blur-md: 16px;
+    --blur-lg: 24px;
+    --blur-xl: 40px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    background: linear-gradient(135deg, 
+        #667eea 0%, 
+        #764ba2 25%, 
+        #f093fb 50%, 
+        #f5576c 75%, 
+        #4facfe 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-bottom: 120px; /* 플로팅 컨트롤을 위한 여백 */
+}
+
+/* 리퀴드 글래스 헤더 */
+.bg-primary {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+}
+
+.bg-primary h2 {
+    color: var(--dark-color) !important;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 리퀴드 글래스 네비게이션 */
+.navbar-light {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--dark-color);
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    margin-right: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-light .navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover::before,
+.navbar-light .navbar-nav .nav-link.active::before {
+    opacity: 1;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary-color);
+    background: rgba(0, 122, 255, 0.1);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 122, 255, 0.2);
+}
+
+/* 리퀴드 글래스 탭 네비게이션 */
+.nav-tabs {
+    border: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border-radius: 16px;
+    padding: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    margin: 0 4px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.nav-tabs .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.nav-tabs .nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color);
+    background: rgba(0, 122, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.nav-tabs .nav-link.active {
+    color: white;
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%, 
+        #5856D6 100%
+    );
+    font-weight: 600;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
+}
+
+/* 리퀴드 글래스 카드 */
+.card {
+    border: none;
+    border-radius: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.8), 
+        transparent
+    );
+}
+
+.card-header {
+    border-radius: 20px 20px 0 0 !important;
+    border: none;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-header.bg-secondary {
+    background: linear-gradient(135deg, 
+        rgba(142, 142, 147, 0.8) 0%, 
+        rgba(174, 174, 178, 0.6) 100%
+    ) !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, 
+        rgba(52, 199, 89, 0.8) 0%, 
+        rgba(48, 176, 199, 0.6) 100%
+    ) !important;
+}
+
+.card-body {
+    padding: 2rem;
+    position: relative;
+}
+
+/* 리퀴드 글래스 폼 요소 */
+.form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.75rem;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-label.text-danger {
+    color: var(--danger-color) !important;
+}
+
+.form-control, .form-select {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--dark-color);
+}
+
+.form-control::placeholder {
+    color: rgba(60, 60, 67, 0.6);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    box-shadow: 
+        0 0 0 4px rgba(0, 122, 255, 0.1),
+        0 4px 20px rgba(0, 122, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+/* 리퀴드 글래스 입력 그룹 */
+.input-group {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.input-group .btn {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    font-size: 12px;
+    padding: 1rem 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.input-group .btn:hover {
+    background: rgba(0, 122, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.input-group .form-control, .input-group .form-select {
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+}
+
+.input-group .input-group-text {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: none;
+    border-right: none;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* 리퀴드 글래스 버튼 */
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    padding: 0.875rem 1.75rem;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: none;
+    letter-spacing: 0.3px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success-color) 0%, #30B154 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning-color) 0%, #FF8F00 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #5856D6 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #D70015 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, var(--info-color) 0%, #007AFF 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(90, 200, 250, 0.3);
+}
+
+.btn-outline-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(142, 142, 147, 0.5);
+    color: var(--secondary-color);
+}
+
+.btn-outline-secondary:hover {
+    background: rgba(142, 142, 147, 0.8);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.btn-outline-info {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(90, 200, 250, 0.5);
+    color: var(--info-color);
+}
+
+.btn-outline-info:hover {
+    background: rgba(90, 200, 250, 0.8);
+    color: white;
+    border-color: var(--info-color);
+}
+
+.btn-lg {
+    padding: 1.125rem 2.25rem;
+    font-size: 16px;
+    border-radius: 16px;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+/* 리퀴드 글래스 테이블 */
+.table-responsive {
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.table {
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 0;
+    background: transparent;
+}
+
+.table th {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+    padding: 1.25rem 1rem;
+    color: var(--dark-color);
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    vertical-align: middle;
+    font-size: 13px;
+    color: var(--dark-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.table tbody tr:hover td {
+    background: rgba(0, 122, 255, 0.05);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+.table-bordered {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table-light th {
+    background: linear-gradient(135deg, 
+        rgba(248, 249, 250, 0.8) 0%, 
+        rgba(233, 236, 239, 0.6) 100%
+    ) !important;
+}
+
+.table-dark th {
+    background: linear-gradient(135deg, 
+        rgba(52, 58, 64, 0.8) 0%, 
+        rgba(33, 37, 41, 0.6) 100%
+    ) !important;
+    color: white !important;
+}
+
+.table-success, .table-success td {
+    background: rgba(52, 199, 89, 0.1) !important;
+}
+
+.table-danger, .table-danger td {
+    background: rgba(255, 59, 48, 0.1) !important;
+}
+
+.table-warning, .table-warning td {
+    background: rgba(255, 149, 0, 0.1) !important;
+}
+
+.table-primary, .table-primary td {
+    background: rgba(0, 122, 255, 0.1) !important;
+}
+
+/* 리퀴드 글래스 체크박스 */
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.125em;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-check-input:checked {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #5856D6 100%);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+/* 리퀴드 글래스 텍스트 색상 */
+.text-primary {
+    color: var(--primary-color) !important;
+    text-shadow: 0 1px 3px rgba(0, 122, 255, 0.2);
+}
+
+.text-danger {
+    color: var(--danger-color) !important;
+    text-shadow: 0 1px 3px rgba(255, 59, 48, 0.2);
+}
+
+.text-success {
+    color: var(--success-color) !important;
+    text-shadow: 0 1px 3px rgba(52, 199, 89, 0.2);
+}
+
+.text-warning {
+    color: var(--warning-color) !important;
+    text-shadow: 0 1px 3px rgba(255, 149, 0, 0.2);
+}
+
+.text-info {
+    color: var(--info-color) !important;
+    text-shadow: 0 1px 3px rgba(90, 200, 250, 0.2);
+}
+
+.text-secondary {
+    color: var(--secondary-color) !important;
+}
+
+/* 리퀴드 글래스 알림 */
+.alert {
+    border-radius: 16px;
+    border: none;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+    background: rgba(52, 199, 89, 0.1);
+    border-color: rgba(52, 199, 89, 0.3);
+    color: var(--success-color);
+}
+
+.alert-danger {
+    background: rgba(255, 59, 48, 0.1);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: var(--danger-color);
+}
+
+.alert-warning {
+    background: rgba(255, 149, 0, 0.1);
+    border-color: rgba(255, 149, 0, 0.3);
+    color: var(--warning-color);
+}
+
+.alert-info {
+    background: rgba(90, 200, 250, 0.1);
+    border-color: rgba(90, 200, 250, 0.3);
+    color: var(--info-color);
+}
+
+/* 리퀴드 글래스 배지 */
+.badge {
+    border-radius: 12px;
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* 리퀴드 글래스 드롭다운 */
+.dropdown-menu {
+    border-radius: 16px;
+    border: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px;
+}
+
+.dropdown-item {
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    color: var(--dark-color);
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 13px;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 13px;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem;
+        font-size: 12px;
+    }
+}
+
+/* 로딩 애니메이션 */
+.loading {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* 성공/오류 메시지 */
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d1edff 0%, #c3e6ff 100%);
+    color: #0f5132;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c2c7 100%);
+    color: #842029;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* 스크롤바 커스터마이징 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 포커스 표시 개선 */
+.form-control:focus,
+.form-select:focus,
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+/* 레이아웃 개선 */
+.border {
+    border-color: #dee2e6 !important;
+    border-radius: 8px !important;
+}
+
+.p-3 {
+    padding: 1.5rem !important;
+}
+
+/* 버튼 그룹 스타일링 */
+.btn-group .btn {
+    margin-right: 0.5rem;
+}
+
+.btn-group .btn:last-child {
+    margin-right: 0;
+}
+
+/* 입력 필드 크기 조정 */
+.form-control[style*="max-width: 60px"] {
+    min-width: 80px;
+}
+
+/* 리퀴드 글래스 모달 */
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-xl));
+    -webkit-backdrop-filter: blur(var(--blur-xl));
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.2),
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px 20px 0 0;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 20px 20px;
+    padding: 1.5rem 2rem;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+/* 리퀴드 글래스 플로팅 컨트롤 */
+.floating-controls {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1050;
+}
+
+.floating-main-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%, 
+        #5856D6 100%
+    );
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    box-shadow: 
+        0 8px 32px rgba(0, 122, 255, 0.4),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-main-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.floating-main-btn:hover::before {
+    opacity: 1;
+}
+
+.floating-main-btn:hover {
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: 
+        0 12px 40px rgba(0, 122, 255, 0.5),
+        0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.floating-main-btn i {
+    color: white;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.floating-menu {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.floating-menu.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.floating-menu-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.floating-menu-item:hover::before {
+    opacity: 1;
+}
+
+.floating-menu-item:hover {
+    transform: scale(1.2);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.floating-menu-item i {
+    color: var(--primary-color);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.floating-menu-item:hover i {
+    color: var(--dark-color);
+    transform: scale(1.1);
+}
+
+/* 툴팁 */
+.floating-menu-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.floating-menu-item:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(-8px);
+}
+
+/* 애니메이션 효과 개선 */
+@keyframes liquidFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+    }
+}
+
+.floating-main-btn.animate {
+    animation: liquidFloat 2s ease-in-out infinite;
+}
+
+/* AG-Grid 리퀴드 글래스 스타일 */
+.ag-theme-alpine-liquid-glass {
+    --ag-foreground-color: var(--dark-color);
+    --ag-background-color: rgba(255, 255, 255, 0.4);
+    --ag-header-foreground-color: var(--dark-color);
+    --ag-header-background-color: rgba(255, 255, 255, 0.6);
+    --ag-odd-row-background-color: rgba(255, 255, 255, 0.2);
+    --ag-row-hover-color: rgba(0, 122, 255, 0.1);
+    --ag-selected-row-background-color: rgba(0, 122, 255, 0.2);
+    --ag-border-color: rgba(255, 255, 255, 0.3);
+    --ag-secondary-border-color: rgba(255, 255, 255, 0.2);
+    --ag-input-focus-border-color: var(--primary-color);
+    --ag-range-selection-border-color: var(--primary-color);
+    --ag-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --ag-font-size: 13px;
+}
+
+.liquid-glass-grid {
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
+    position: relative;
+}
+
+.liquid-glass-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.8), 
+        transparent
+    );
+    z-index: 1;
+}
+
+/* AG-Grid 헤더 스타일링 */
+.ag-theme-alpine-liquid-glass .ag-header {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 0.3) 100%
+    );
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.ag-theme-alpine-liquid-glass .ag-header-cell {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--dark-color);
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+.ag-theme-alpine-liquid-glass .ag-header-cell-text {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    text-align: center !important;
+    justify-content: center !important;
+    width: 100%;
+}
+
+.ag-theme-alpine-liquid-glass .ag-header-cell-label {
+    justify-content: center !important;
+    width: 100%;
+}
+
+/* 체크박스 헤더 중앙 정렬 */
+.ag-theme-alpine-liquid-glass .ag-header-select-all {
+    justify-content: center !important;
+}
+
+/* 헤더 중앙 정렬 클래스 */
+.ag-header-cell-center {
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+.ag-header-cell-center .ag-header-cell-label {
+    justify-content: center !important;
+    width: 100%;
+}
+
+.ag-header-cell-center .ag-header-cell-text {
+    text-align: center !important; 
+    width: 100%;
+}
+
+/* 모든 헤더 셀 중앙 정렬 강제 */
+.ag-theme-alpine-liquid-glass .ag-header-cell-label {
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.ag-theme-alpine-liquid-glass .ag-header-cell-comp-wrapper {
+    justify-content: center !important;
+}
+
+/* AG-Grid 행 스타일링 */
+.ag-theme-alpine-liquid-glass .ag-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ag-theme-alpine-liquid-glass .ag-row:hover {
+    background: rgba(0, 122, 255, 0.08) !important;
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.1);
+}
+
+.ag-theme-alpine-liquid-glass .ag-row-selected {
+    background: rgba(0, 122, 255, 0.15) !important;
+    border-left: 3px solid var(--primary-color);
+}
+
+/* AG-Grid 셀 스타일링 */
+.ag-theme-alpine-liquid-glass .ag-cell {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 13px;
+    color: var(--dark-color);
+}
+
+.ag-theme-alpine-liquid-glass .ag-cell-focus {
+    border: 2px solid var(--primary-color) !important;
+    background: rgba(0, 122, 255, 0.05);
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+/* AG-Grid 입력 필드 */
+.ag-theme-alpine-liquid-glass .ag-text-field-input,
+.ag-theme-alpine-liquid-glass .ag-input-field-input {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    color: var(--dark-color);
+    padding: 0.5rem 0.75rem;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.ag-theme-alpine-liquid-glass .ag-text-field-input:focus,
+.ag-theme-alpine-liquid-glass .ag-input-field-input:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+    outline: none;
+}
+
+/* AG-Grid 체크박스 */
+.ag-theme-alpine-liquid-glass .ag-checkbox-input-wrapper {
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.ag-theme-alpine-liquid-glass .ag-checkbox-input-wrapper.ag-checked {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #5856D6 100%);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+/* AG-Grid 드롭다운 */
+.ag-theme-alpine-liquid-glass .ag-select .ag-picker-field-wrapper {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.ag-theme-alpine-liquid-glass .ag-select .ag-picker-field-wrapper:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+/* AG-Grid 페이징 */
+.ag-theme-alpine-liquid-glass .ag-paging-panel {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 0.3) 100%
+    );
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 16px 16px;
+}
+
+.ag-theme-alpine-liquid-glass .ag-paging-button {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    color: var(--dark-color);
+    transition: all 0.3s ease;
+    margin: 0 2px;
+}
+
+.ag-theme-alpine-liquid-glass .ag-paging-button:hover {
+    background: rgba(0, 122, 255, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 122, 255, 0.2);
+}
+
+/* AG-Grid 필터 */
+.ag-theme-alpine-liquid-glass .ag-filter-toolpanel-search {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+}
+
+/* AG-Grid 메뉴 */
+.ag-theme-alpine-liquid-glass .ag-menu {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-xl));
+    -webkit-backdrop-filter: blur(var(--blur-xl));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.ag-theme-alpine-liquid-glass .ag-menu-option {
+    border-radius: 8px;
+    margin: 4px;
+    transition: all 0.3s ease;
+}
+
+.ag-theme-alpine-liquid-glass .ag-menu-option:hover {
+    background: rgba(0, 122, 255, 0.1);
+    transform: translateX(4px);
+}
+
+/* 그리드 내 버튼 스타일 */
+.liquid-glass-grid .btn-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 11px;
+    border-radius: 6px;
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    transition: all 0.3s ease;
+}
+
+.liquid-glass-grid .btn-outline-primary {
+    background: rgba(0, 122, 255, 0.1);
+    border-color: rgba(0, 122, 255, 0.3);
+    color: var(--primary-color);
+}
+
+.liquid-glass-grid .btn-outline-primary:hover {
+    background: rgba(0, 122, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+.liquid-glass-grid .btn-outline-danger {
+    background: rgba(255, 59, 48, 0.1);
+    border-color: rgba(255, 59, 48, 0.3);
+    color: var(--danger-color);
+}
+
+.liquid-glass-grid .btn-outline-danger:hover {
+    background: rgba(255, 59, 48, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+}
+
+/* 그리드 컨트롤 버튼 개선 */
+.liquid-glass-grid + .d-flex .btn-sm {
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 그리드 플레이스홀더 텍스트 */
+.placeholder-text {
+    color: rgba(60, 60, 67, 0.6);
+    font-style: italic;
+    font-size: 12px;
+}
+
+.date-cell {
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+.grid-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}
